@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./App.css";
-import FirstComponent from "./Components/learning-examples/FirstComponent";
-import SecondComponent from "./Components/learning-examples/SecondComponent";
-import ThirdComponent from "./Components/learning-examples/ThirdComponent";
+import TodoApp from "./Components/Todo/TodoApp";
+import LoginComponent from "./Components/Todo/LoginComponent";
+import ThirdComponent from "./Components/Todo/ThirdComponent";
 
 class App extends Component {
   render() {
@@ -11,9 +11,9 @@ class App extends Component {
        
             Edit <code>src/App.js</code> and save to reload.
 
-        <FirstComponent />
-        <SecondComponent />
-        <ThirdComponent />
+        <TodoApp />
+        <LoginComponent />
+        {/* <ThirdComponent /> */}
       </div>
     );
   }
