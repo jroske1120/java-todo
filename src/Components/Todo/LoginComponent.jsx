@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import AuthenticationService from "./AuthenticationService.js";
 
 class LoginComponent extends Component {
   state = {
@@ -17,7 +18,8 @@ class LoginComponent extends Component {
   Login = () => {
     const s = this.state;
     if (s.username === "joel" && s.password === "joel") {
-      this.props.history.push(`/welcome/${this.state.username}`)
+      AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+      this.props.history.push(`/welcome/${this.state.username}`);
       this.setState({ successMessage: true, loginFailed: false });
     } else {
       this.setState({ loginFailed: true, successMessage: false });
@@ -26,7 +28,9 @@ class LoginComponent extends Component {
   render() {
     return (
       <div>
-        {this.state.loginFailed && <div>Invalid Login</div>}
+        {this.state.loginFailed && (
+          <div className="alert alert-warning">Invalid Login</div>
+        )}
         {this.state.successMessage && <div> Login Successful</div>}
         Username:
         <input
@@ -42,7 +46,9 @@ class LoginComponent extends Component {
           value={this.state.password}
           onChange={(event) => this.handleChange(event, "password")}
         />
-        <button onClick={this.Login}>Login</button>
+        <button className="btn btn-success" onClick={this.Login}>
+          Login
+        </button>
       </div>
     );
   }
