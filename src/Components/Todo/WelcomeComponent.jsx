@@ -4,7 +4,7 @@ import React from "react";
 
 function WelcomeComponent () {
     return (
-    <div className="WelcomeComponent">WelcomeComponent</div>
+    <div className="WelcomeComponent">{this.props.params}</div>
     );
   }
 

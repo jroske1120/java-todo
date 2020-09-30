@@ -15,10 +15,9 @@ class LoginComponent extends Component {
   };
 
   Login = () => {
-    console.log("this.state...", this.state);
     const s = this.state;
     if (s.username === "joel" && s.password === "joel") {
-      this.props.history.push('/welcome')
+      this.props.history.push(`/welcome/${this.state.username}`)
       this.setState({ successMessage: true, loginFailed: false });
     } else {
       this.setState({ loginFailed: true, successMessage: false });
@@ -27,8 +26,6 @@ class LoginComponent extends Component {
   render() {
     return (
       <div>
-        {/* <ShowInvalidCredentials loginFailed={this.state.loginFailed} />
-        <ShowLoginSuccessMessage successMessage={this.state.successMessage} /> */}
         {this.state.loginFailed && <div>Invalid Login</div>}
         {this.state.successMessage && <div> Login Successful</div>}
         Username:
