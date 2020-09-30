@@ -18,6 +18,7 @@ class LoginComponent extends Component {
     console.log("this.state...", this.state);
     const s = this.state;
     if (s.username === "joel" && s.password === "joel") {
+      this.props.history.push('/welcome')
       this.setState({ successMessage: true, loginFailed: false });
     } else {
       this.setState({ loginFailed: true, successMessage: false });
@@ -49,19 +50,5 @@ class LoginComponent extends Component {
     );
   }
 }
-
-// function ShowInvalidCredentials(props) {
-//   if (props.loginFailed) {
-//     return <div>Invalid Login</div>;
-//   } return null;
-// }
-
-// function ShowLoginSuccessMessage(props) {
-//   if (props.successMessage) {
-//     return         <div>Login Successful</div>
-//     ;
-//   } return null;
-// }
-
 
 export default LoginComponent;
