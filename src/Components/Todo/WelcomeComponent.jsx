@@ -1,11 +1,19 @@
-
-import React from "react";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 // import {BrowserRouter as Router, Route} from 'react-router-dom';
 
-function WelcomeComponent () {
+class WelcomeComponent extends Component {
+  render() {
     return (
-    <div className="WelcomeComponent">{this.props.params}</div>
+      <>
+        <h1>Welcome!</h1>
+        <div className="container">
+          Welcome {this.props.match.params.name}. You can manage your list
+          <Link to="/todos">here</Link>
+        </div>
+      </>
     );
   }
+}
 
-  export default WelcomeComponent;
+export default WelcomeComponent;

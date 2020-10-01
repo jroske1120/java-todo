@@ -1,55 +1,60 @@
-import React, { Component } from "react";
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import AuthenticationService from "./AuthenticationService.js";
 
 class LoginComponent extends Component {
-  state = {
-    username: "",
-    password: "",
-    loginFailed: false,
-    successMessage: "",
-  };
+  constructor(props) {
+    super(props)
 
-  handleChange = (event, propertyName) => {
-    this.setState({
-      [propertyName]: event.target.value,
-    });
-  };
+    this.state = {
+        username: 'joel',
+        password: '',
+        hasLoginFailed: false,
+        showSuccessMessage: false
+    }
+    // this.handleUsernameChange = this.handleUsernameChange.bind(this)
+    // this.handlePasswordChange = this.handlePasswordChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.Login = this.Login.bind(this)
+}
+
+handleChange(event) {
+    // console.log(this.state);
+    this.setState(
+        {
+            [event.target.name]
+                : event.target.value
+        }
+    )
+}
 
   Login = () => {
-    const s = this.state;
-    if (s.username === "joel" && s.password === "joel") {
-      AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
-      this.props.history.push(`/welcome/${this.state.username}`);
-      this.setState({ successMessage: true, loginFailed: false });
-    } else {
-      this.setState({ loginFailed: true, successMessage: false });
+    console.log('state is...', this.state)
+    if (this.state.username === 'joel' && this.state.password === 'joel') {
+      AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password)
+            this.props.history.push(`/welcome/${this.state.username}`)
+            this.setState({showSuccessMessage:true})
+            this.setState({hasLoginFailed:false})
+        }
+        else {
+            this.setState({showSuccessMessage:false})
+            this.setState({hasLoginFailed:true})
     }
   };
   render() {
     return (
       <div>
-        {this.state.loginFailed && (
-          <div className="alert alert-warning">Invalid Login</div>
-        )}
-        {this.state.successMessage && <div> Login Successful</div>}
-        Username:
-        <input
-          type="text"
-          name="username"
-          value={this.state.username}
-          onChange={(event) => this.handleChange(event, "username")}
-        />
-        Password:
-        <input
-          type="password"
-          name="password"
-          value={this.state.password}
-          onChange={(event) => this.handleChange(event, "password")}
-        />
-        <button className="btn btn-success" onClick={this.Login}>
-          Login
-        </button>
-      </div>
+                <h1>Login</h1>
+                <div className="container">
+                    {/*<ShowInvalidCredentials hasLoginFailed={this.state.hasLoginFailed}/>*/}
+                    {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
+                    {this.state.showSuccessMessage && <div>Login Sucessful</div>}
+                    {/*<ShowLoginSuccessMessage showSuccessMessage={this.state.showSuccessMessage}/>*/}
+                    User Name: <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
+                    Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
+                    <button className="btn btn-success" onClick={this.Login}>Login</button>
+                </div>
+            </div>
     );
   }
 }
