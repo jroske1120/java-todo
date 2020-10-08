@@ -3,15 +3,26 @@ import { Link } from "react-router-dom";
 // import {BrowserRouter as Router, Route} from 'react-router-dom';
 import HelloWorldService from "../../api/todo1/HelloWorldService.js";
 class WelcomeComponent extends Component {
-  state = {
-    welcomeMessage: "",
-  };
-
+  constructor(props) {
+    super(props)
+    this.retrieveWelcomeMessage = this.retrieveWelcomeMessage.bind(this)
+    this.state = {
+        welcomeMessage: ''
+    }
+    this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this)
+  }
   retrieveWelcomeMessage() {
-    HelloWorldService.executeHelloWorldService().then((response) =>
-      console.log("response", response)
-    );
+    HelloWorldService.executeHelloWorldService()
+    .then((response) => this.handleSuccessfulResponse(response))
+    
     // .catch()
+  }
+
+  handleSuccessfulResponse(response){
+    console.log(response)
+    this.setState({
+      welcomeMessage: response.data
+    });
   }
 
   render() {
@@ -31,9 +42,7 @@ class WelcomeComponent extends Component {
             Get Welcome message
           </button>
         </div>
-        <div className="container">
-          {this.state.welcomeMessage}
-        </div>
+        <div className="container">{this.state.welcomeMessage}</div>
       </>
     );
   }
