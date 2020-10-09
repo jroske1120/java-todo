@@ -15,7 +15,9 @@ class WelcomeComponent extends Component {
     HelloWorldService.executeHelloWorldService()
     .then((response) => this.handleSuccessfulResponse(response))
     
-    // .catch()
+    .catch(error =>
+      console.log(error)
+    )
   }
 
   handleSuccessfulResponse(response){
