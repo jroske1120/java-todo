@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.todo.Todo;
 
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -15,6 +14,7 @@ public class TodoResource {
 	
 	@Autowired
 	private TodoHardcodedService todoService;
+	
 	
 	@GetMapping("/users/{username}/todos")
 	public List<Todo> getAllTodos(@PathVariable String username){
