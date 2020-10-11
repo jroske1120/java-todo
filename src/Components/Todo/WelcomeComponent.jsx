@@ -4,27 +4,35 @@ import { Link } from "react-router-dom";
 import HelloWorldService from "../../api/todo1/HelloWorldService.js";
 class WelcomeComponent extends Component {
   constructor(props) {
-    super(props)
-    this.retrieveWelcomeMessage = this.retrieveWelcomeMessage.bind(this)
+    super(props);
+    this.retrieveWelcomeMessage = this.retrieveWelcomeMessage.bind(this);
     this.state = {
-        welcomeMessage: ''
-    }
-    this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this)
+      welcomeMessage: "",
+    };
+    this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this);
+    this.Error = this.handleError.bind(this);
   }
   retrieveWelcomeMessage() {
-    HelloWorldService.executeHelloWorldService()
-    .then((response) => this.handleSuccessfulResponse(response))
-    
-    .catch(error =>
-      console.log(error)
+    HelloWorldService.executeHelloWorldPathVariableService(
+      this.props.match.params.name
     )
+      .then((response) => this.handleSuccessfulResponse(response))
+      .catch((error) => this.handleError(error));
   }
 
-  handleSuccessfulResponse(response){
-    console.log(response)
+  handleSuccessfulResponse(response) {
+    console.log(response);
     this.setState({
-      welcomeMessage: response.data
+      welcomeMessage: response.data.message,
     });
+  }
+  handleError(error) {
+    let errorMessage = "";
+    if (error.message) errorMessage += error.message;
+    if (error.response && error.response.data) {
+      errorMessage += error.response.data.message;
+    }
+    this.setState({ welcomeMessage: errorMessage });
   }
 
   render() {
