@@ -34,7 +34,7 @@ public class TodoHardcodedService {
 
 	public Todo findById(long id) {
 		for (Todo todo : todos) {
-			if (todo.getID() == id) {
+			if (todo.getId() == id) {
 				return todo;
 			}
 		}
