@@ -70,7 +70,7 @@ class ListTodosComponent extends Component {
                 <tr key={todo.id}>
                   <td>{todo.description}</td>
                   <td>{todo.done.toString()}</td>
-                  <td>{todo.dateCompleted.toString()}</td>
+                  <td>{todo.targetDate.toString()}</td>
                   <td> <button
                       onClick={() => this.updateTodoClicked(todo.id)}
                       className="btn btn-success"
