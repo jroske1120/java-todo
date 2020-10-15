@@ -6,15 +6,15 @@ public class Todo {
 	private long id;
 	private String username;
 	private String description;
-	private Date dateCompleted;
+	private Date targetDate;
 	private boolean isDone;
 
-	public Todo(long id, String username, String description, Date dateCompleted, boolean isDone) {
+	public Todo(long id, String username, String description, Date targetDate, boolean isDone) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.description = description;
-		this.dateCompleted = dateCompleted;
+		this.targetDate = targetDate;
 		this.isDone = isDone;
 	}
 
@@ -42,12 +42,12 @@ public class Todo {
 		this.description = description;
 	}
 
-	public Date getDateCompleted() {
-		return dateCompleted;
+	public Date gettargetDate() {
+		return targetDate;
 	}
 
-	public void setDateCompleted(Date dateCompleted) {
-		this.dateCompleted = dateCompleted;
+	public void settargetDate(Date targetDate) {
+		this.targetDate = targetDate;
 	}
 
 	public boolean isDone() {
