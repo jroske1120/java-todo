@@ -27,7 +27,7 @@ public class TodoHardcodedService {
 	//Updates a todo task by deleting it and
 	//creating a new one. Shortcut, probably not ideal?
 	public Todo save(Todo todo) {
-		if(todo.getId()==-1) {
+		if(todo.getId()==-1 || todo.getId()==0) {
 			todo.setId(++idCounter);
 			todos.add(todo);
 		}else {

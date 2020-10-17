@@ -57,6 +57,20 @@ public class TodoResource {
 			return new ResponseEntity<Todo>(todo, HttpStatus.OK);
 		}
 		
+		
+				@PostMapping("/users/{username}/todos")
+				public ResponseEntity<Void> updateTodo(
+						@PathVariable String username, @RequestBody Todo todo){
+					
+					Todo createdTodo = todoService.save(todo);
+					
+					//Location
+					//Get current resource url "/users/{username}/todos/{id}"
+					URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+					.path("/{id}").buildAndExpand(createdTodo.getId()).toUri();
+					return  ResponseEntity.created(uri).build();
+					}
+		
 	}
 
 
