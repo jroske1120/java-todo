@@ -63,7 +63,6 @@ public class TodoResource {
 						@PathVariable String username, @RequestBody Todo todo){
 					
 					Todo createdTodo = todoService.save(todo);
-					
 					//Get current resource url "/users/{username}/todos/{id}"
 					URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 					.path("/{id}").buildAndExpand(createdTodo.getId()).toUri();
