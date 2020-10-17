@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import AuthenticationService from "./AuthenticationService";
 // import { Route, Redirect } from "react-router-dom";
 import moment from "moment";
 import TodoDataService from "../../api/todo1/TodoDataService";
@@ -14,16 +13,13 @@ class TodoComponent extends Component {
   };
 
   componentDidMount() {
-    console.log("onsubmit clicked", this.state.id);
-
     let username = AuthenticationService.getLoggedInUserName();
-    TodoDataService.retrieveTodo(username, this.state.id)
-    .then(response => 
+    TodoDataService.retrieveTodo(username, this.state.id).then((response) =>
       this.setState({
-      description: response.data.description,
-      targetDate: moment(response.data.targetDate).format("YYYY-MM-DD"),
-    })
-    )
+        description: response.data.description,
+        targetDate: moment(response.data.targetDate).format("YYYY-MM-DD"),
+      })
+    );
   }
 
   onSubmit = (values) => {
@@ -31,10 +27,10 @@ class TodoComponent extends Component {
     TodoDataService.updateTodo(username, this.state.id, {
       id: this.state.id,
       description: values.description,
-      targetDate: values.targetDate
-    })
-    console.log("onsubmit clicked", this.state.id);
-  }
+      targetDate: values.targetDate,
+    }).then(() => this.props.history.push('/todos'));
+    console.log("onsubmit clicked", values);
+  };
 
   validate(values) {
     let errors = {};
