@@ -14,6 +14,8 @@ class TodoComponent extends Component {
   };
 
   componentDidMount() {
+    console.log("onsubmit clicked", this.state.id);
+
     let username = AuthenticationService.getLoggedInUserName();
     TodoDataService.retrieveTodo(username, this.state.id)
     .then(response => 
@@ -24,8 +26,14 @@ class TodoComponent extends Component {
     )
   }
 
-  onSubmit(values) {
-    console.log("onsubmit clicked", values);
+  onSubmit = (values) => {
+    let username = AuthenticationService.getLoggedInUserName();
+    TodoDataService.updateTodo(username, this.state.id, {
+      id: this.state.id,
+      description: values.description,
+      targetDate: values.targetDate
+    })
+    console.log("onsubmit clicked", this.state.id);
   }
 
   validate(values) {
@@ -41,6 +49,7 @@ class TodoComponent extends Component {
     }
     return errors;
   }
+
   render() {
     let { description, targetDate } = this.state;
     return (
