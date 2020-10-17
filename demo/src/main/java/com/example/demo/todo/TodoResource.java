@@ -64,13 +64,11 @@ public class TodoResource {
 					
 					Todo createdTodo = todoService.save(todo);
 					
-					//Location
 					//Get current resource url "/users/{username}/todos/{id}"
 					URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 					.path("/{id}").buildAndExpand(createdTodo.getId()).toUri();
 					return  ResponseEntity.created(uri).build();
 					}
-		
 	}
 
 
