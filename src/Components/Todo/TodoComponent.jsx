@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import AuthenticationService from "./AuthenticationService";
 // import { Route, Redirect } from "react-router-dom";
 import moment from "moment";
 import TodoDataService from "../../api/todo1/TodoDataService";
@@ -14,27 +13,35 @@ class TodoComponent extends Component {
   };
 
   componentDidMount() {
-    console.log("onsubmit clicked", this.state.id);
-
+    if (this.state.id === -1) {
+      return;
+    }
     let username = AuthenticationService.getLoggedInUserName();
-    TodoDataService.retrieveTodo(username, this.state.id)
-    .then(response => 
+    TodoDataService.retrieveTodo(username, this.state.id).then((response) =>
       this.setState({
-      description: response.data.description,
-      targetDate: moment(response.data.targetDate).format("YYYY-MM-DD"),
-    })
-    )
+        description: response.data.description,
+        targetDate: moment(response.data.targetDate).format("YYYY-MM-DD"),
+      })
+    );
   }
 
   onSubmit = (values) => {
     let username = AuthenticationService.getLoggedInUserName();
-    TodoDataService.updateTodo(username, this.state.id, {
+    let todo = {
       id: this.state.id,
       description: values.description,
-      targetDate: values.targetDate
-    })
-    console.log("onsubmit clicked", this.state.id);
-  }
+      targetDate: values.targetDate,
+    };
+    if (this.state.id === -1) {
+      TodoDataService.createTodo(username, todo).then(() =>
+        this.props.history.push("/todos")
+      );
+    } else {
+      TodoDataService.updateTodo(username, this.state.id, todo).then(() =>
+        this.props.history.push("/todos")
+      );
+    }
+  };
 
   validate(values) {
     let errors = {};
