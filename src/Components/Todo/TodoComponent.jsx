@@ -9,7 +9,7 @@ class TodoComponent extends Component {
   state = {
     id: this.props.match.params.id,
     description: "",
-    targetDate: moment(new Date()).format("YYYY-MM-DD"),
+    targetDate: "",
   };
 
   componentDidMount() {
@@ -20,7 +20,7 @@ class TodoComponent extends Component {
     TodoDataService.retrieveTodo(username, this.state.id).then((response) =>
       this.setState({
         description: response.data.description,
-        targetDate: moment(response.data.targetDate).format("YYYY-MM-DD"),
+        targetDate: moment(response.data.targetDate).format("MMM Do YY"),
       })
     );
   }
