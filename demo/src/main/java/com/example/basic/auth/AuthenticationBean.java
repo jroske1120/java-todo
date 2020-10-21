@@ -1,4 +1,4 @@
-package com.example.demo.basic.auth;
+package com.example.basic.auth;
 
 public class AuthenticationBean {
 	
