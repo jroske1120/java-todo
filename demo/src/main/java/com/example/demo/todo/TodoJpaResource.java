@@ -19,40 +19,38 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class TodoJpaResource {
-	
+
 	@Autowired
 	private TodoHardcodedService todoService;
 
 	@Autowired
 	private TodoJpaRepository todoJpaRepository;
 
-	
 	@GetMapping("/jpa/users/{username}/todos")
-	public List<Todo> getAllTodos(@PathVariable String username){
+	public List<Todo> getAllTodos(@PathVariable String username) {
 		return todoJpaRepository.findByUsername(username);
-		//return todoService.findAll();
+		// return todoService.findAll();
 	}
 
 	@GetMapping("/jpa/users/{username}/todos/{id}")
-	public Todo getTodo(@PathVariable String username, @PathVariable long id){
+	public Todo getTodo(@PathVariable String username, @PathVariable long id) {
 		return todoJpaRepository.findById(id).get();
-		//return todoService.findById(id);
+		// return todoService.findById(id);
 	}
 
 	@DeleteMapping("/jpa/users/{username}/todos/{id}")
-	// REntinty returns a specific status
 	public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long id) {
 
 		todoJpaRepository.deleteById(id);
-		
-		return ResponseEntity.notFound().build();
+
+		return ResponseEntity.noContent().build();
 	}
 
 	// Edit/Update a Todo
 	@PutMapping("/jpa/users/{username}/todos/{id}")
 	public ResponseEntity<Todo> updateTodo(@PathVariable String username, @PathVariable long id,
 			@RequestBody Todo todo) {
-		
+
 		todo.setUsername(username);
 
 		Todo todoUpdated = todoJpaRepository.save(todo);
@@ -64,10 +62,9 @@ public class TodoJpaResource {
 	public ResponseEntity<Void> createTodo(@PathVariable String username, @RequestBody Todo todo) {
 
 		todo.setUsername(username);
-		
+
 		Todo createdTodo = todoJpaRepository.save(todo);
-		
-		
+
 		// Get current resource url "/users/{username}/todos/{id}"
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdTodo.getId())
 				.toUri();
